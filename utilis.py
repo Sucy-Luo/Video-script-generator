@@ -4,9 +4,11 @@
 # @Software: PyCharm
 from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
-from langchain_community.utilities import WikipediaAPIWrapper
+
 
 import os
+
+
 
 def generate_script(subject, video_length, creativity, api_key):
     title_template = ChatPromptTemplate.from_messages(
@@ -24,7 +26,8 @@ def generate_script(subject, video_length, creativity, api_key):
         ]
     )
 
-    model = ChatOpenAI(openai_api_key=api_key, temperature=creativity)
+    os.environ["OPENAI_API_KEY"] = api_key
+    model = ChatOpenAI(temperature=creativity)
 
     title_chain = title_template | model
     script_chain = script_template | model
@@ -35,4 +38,4 @@ def generate_script(subject, video_length, creativity, api_key):
 
     return title, script
 
-# print(generate_script("sora模型", 1, 0.7, os.getenv("OPENAI_API_KEY")))
+print(generate_script("sora模型", 1, 0.7, os.getenv("OPENAI_API_KEY")))
