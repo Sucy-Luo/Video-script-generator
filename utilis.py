@@ -5,11 +5,7 @@
 from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-
-# import os
-
-
-
+import os
 def generate_script(subject, video_length, creativity, api_key):
     title_template = ChatPromptTemplate.from_messages(
         [
